@@ -1,5 +1,7 @@
 package roulette;
 
+import util.ConsoleReader;
+
 /**
  * Represents player's attempt to bet on outcome of the roulette wheel's spin.
  * 
@@ -9,7 +11,7 @@ public class Bet
 {
     private String myDescription;
     private int myOdds;
-
+    protected String betChoice;
 
     /**
      * Constructs a bet with the given name and odds.
@@ -39,5 +41,27 @@ public class Bet
     public String getDescription ()
     {
         return myDescription;
+    }
+    
+    public boolean makeBet(Wheel myWheel) 
+    {
+    	return false; 
+    }
+    
+    public String returnResult() {
+		return "";
+	}
+    
+    public String printResults(String result) {
+    	System.out.println();
+    	return result;
+    }
+    
+    public String placeBet() {
+    	return returnResult();
+    }
+    
+    public void setBetChoice(String betChoice) {
+    	this.betChoice = betChoice;
     }
 }

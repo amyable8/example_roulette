@@ -7,18 +7,32 @@ import util.ConsoleReader;
  * Plays a game of roulette.
  * 
  * @author Robert C. Duvall
+ * @author LeeYuZhou (yl218)
+ * @author AmyWang (alw56)
+ * @author Lawrence Lin (al196)
  */
 public class Game
 {
     // name of the game
     private static final String DEFAULT_NAME = "Roulette";
-
+    public static final String RED_BLACK = "Red or Black";
+    public static final int RED_BLACK_ODDS = 1;
+    public static final String ODD_EVEN = "Odd or Even";
+    public static final int ODD_EVEN_ODDS = 1;
+    public static final String THREE_ROW = "Three in a Row";
+    public static final int THREE_ROW_ODDS = 11;
+    public static final String HIGH_LOW = "High or Low";
+    public static final int HIGH_LOW_ODDS = 1;
+    public static final String SINGLE_NUM = "Single Number";
+    public static final int SINGLE_NUM_ODDS = 35;
+    public static final String TWO_ROW = "Two in a Row";
+    public static final int TWO_ROW_ODDS = 17;
     private Wheel myWheel;
     private Bet[] myPossibleBets = 
         {
-            new Bet("Red or Black", 1),
-            new Bet("Odd or Even", 1),
-            new Bet("Three in a Row", 11),
+            new RedBlackBet(),
+            new OddEvenBet(),
+            new ThreeRowBet(),
         };
 
 
@@ -54,13 +68,14 @@ public class Game
         int amount = ConsoleReader.promptRange("How much do you want to bet", 
                                                0, player.getBankroll());
         int whichBet = promptForBet();
-        String betChoice = placeBet(whichBet);
-
+        Bet myBet = myPossibleBets[whichBet];
+        String betChoice = myBet.placeBet();
+        myBet.setBetChoice(betChoice);
         System.out.print("Spinning ...");
         myWheel.spin();
         System.out.println("Dropped into " + myWheel.getColor() + " " + myWheel.getNumber());
 
-        if (betIsMade(whichBet, betChoice))
+        if (myBet.makeBet(myWheel))
         {
             System.out.println("*** Congratulations :) You win ***");
             amount *= myPossibleBets[whichBet].getOdds();
@@ -96,26 +111,6 @@ public class Game
      *
      * @param whichBet specific bet chosen by the user
      */
-    private String placeBet (int whichBet)
-    {
-        String result = "";
-
-        if (whichBet == 0)
-        {
-            result = ConsoleReader.promptOneOf("Please bet", Wheel.BLACK, Wheel.RED);
-        }
-        else if (whichBet == 1)
-        {
-            result = ConsoleReader.promptOneOf("Please bet", "even", "odd");
-        }
-        else if (whichBet == 2)
-        {
-            result = "" + ConsoleReader.promptRange("Enter first of three consecutive numbers", 1, 34);
-        }
-        System.out.println();
-
-        return result;
-    }
 
 
     /**
@@ -125,25 +120,5 @@ public class Game
      * @param whichBet specific bet chosen by the user
      * @param betChoice specific value user chose to try to win the bet 
      */
-    private boolean betIsMade (int whichBet, String betChoice)
-    {
-        if (whichBet == 0)
-        {
-            return myWheel.getColor().equals(betChoice);
-        }
-        else if (whichBet == 1)
-        {
-            return (myWheel.getNumber() % 2 == 0 && betChoice.equals("even")) ||
-                   (myWheel.getNumber() % 2 == 1 && betChoice.equals("odd"));
-        }
-        else if (whichBet == 2)
-        {
-            int start = Integer.parseInt(betChoice);
-            return (start <= myWheel.getNumber() && myWheel.getNumber() < start + 3);
-        }
-        else
-        {
-            return false;
-        }
-    }
+
 }
