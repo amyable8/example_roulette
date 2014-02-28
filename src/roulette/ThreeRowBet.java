@@ -4,7 +4,7 @@ import util.ConsoleReader;
 
 public class ThreeRowBet extends Bet {
 	public ThreeRowBet() {
-		super(Game.THREE_ROW, Game.THREE_ROW_ODDS);
+		super(GameEnum.THREE_ROW, GameEnum.THREE_ROW_ODDS);
 		// TODO Auto-generated constructor stub
 	}
 	public boolean makeBet(Wheel myWheel) {

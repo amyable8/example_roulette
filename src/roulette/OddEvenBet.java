@@ -4,7 +4,7 @@ import util.ConsoleReader;
 
 public class OddEvenBet extends Bet {
 	public OddEvenBet() {
-		super(Game.ODD_EVEN, Game.ODD_EVEN_ODDS);
+		super(GameEnum.ODD_EVEN, GameEnum.ODD_EVEN_ODDS);
 		// TODO Auto-generated constructor stub
 	}
 	public boolean makeBet(Wheel myWheel) {

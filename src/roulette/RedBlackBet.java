@@ -5,7 +5,7 @@ import util.ConsoleReader;
 public class RedBlackBet extends Bet {
 
 	public RedBlackBet() {
-		super(Game.RED_BLACK, Game.RED_BLACK_ODDS);
+		super(GameEnum.RED_BLACK, GameEnum.RED_BLACK_ODDS);
 		// TODO Auto-generated constructor stub
 	}
 

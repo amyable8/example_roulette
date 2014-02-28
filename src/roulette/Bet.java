@@ -1,5 +1,7 @@
 package roulette;
 
+import java.util.ResourceBundle;
+
 import util.ConsoleReader;
 
 /**
@@ -12,7 +14,8 @@ public class Bet
     private String myDescription;
     private int myOdds;
     protected String betChoice;
-
+    private ResourceBundle myResources;
+    
     /**
      * Constructs a bet with the given name and odds.
      * 
@@ -21,7 +24,8 @@ public class Bet
      */
     public Bet (String description, int odds)
     {
-        myDescription = description;
+        
+    	myDescription = description;
         myOdds = odds;
     }
 

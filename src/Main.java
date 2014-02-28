@@ -1,5 +1,5 @@
 import roulette.Gambler;
-import roulette.Game;
+import roulette.GameEnum;
 
 
 /**
@@ -11,7 +11,7 @@ public class Main
 {
     public static void main (String[] args)
     {
-        Game game = new Game();
+        GameEnum game = new GameEnum();
         Gambler player = new Gambler("Robert", 1000);
 
         System.out.println("Hello " + player.getName() + 

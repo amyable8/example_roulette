@@ -1,5 +1,8 @@
 package roulette;
 
+import java.lang.reflect.Constructor;
+import java.util.ResourceBundle;
+
 import util.ConsoleReader;
 
 
@@ -11,7 +14,7 @@ import util.ConsoleReader;
  * @author AmyWang (alw56)
  * @author Lawrence Lin (al196)
  */
-public class Game
+public class GameReflect
 {
     // name of the game
     private static final String DEFAULT_NAME = "Roulette";
@@ -27,21 +30,19 @@ public class Game
     public static final int SINGLE_NUM_ODDS = 35;
     public static final String TWO_ROW = "Two in a Row";
     public static final int TWO_ROW_ODDS = 17;
+    public static final String DEFAULT_RESOURCE_PACKAGE = "resources/";
+    private ResourceBundle myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "Files");
     private Wheel myWheel;
-    private Bet[] myPossibleBets = 
-        {
-            new RedBlackBet(),
-            new OddEvenBet(),
-            new ThreeRowBet(),
-        };
-
+    private Bet[] myPossibleBets;
+    
 
     /**
      * Construct the game.
      */
-    public Game ()
+    public GameReflect ()
     {
         myWheel = new Wheel();
+        myPossibleBets = createBetArray();
     }
 
 
@@ -51,6 +52,24 @@ public class Game
     public String getName ()
     {
         return DEFAULT_NAME;
+    }
+    
+    public Bet[] createBetArray() {
+    	Bet[] bets = new Bet[myResources.keySet().size()];
+    	int index = 0;
+    	for (String key: myResources.keySet()) {
+    		try {
+    		
+				Class c = Class.forName(myResources.getString(key));
+				Bet b = (Bet) c.newInstance();
+				bets[index] = b;
+				index++;
+			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	}
+    	return bets;
     }
 
 
